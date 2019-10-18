@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body,Query, Param, Put, Delete } from '@nestjs/c
 import { create } from 'domain';
 import { declareTypeAlias } from '@babel/types';
 import { ApiUseTags, ApiOperation, ApiModelProperty } from '@nestjs/swagger';
+import { PostModel } from './post.model';
 
 //from Typescript
 class CreatePostDto{
@@ -14,18 +15,12 @@ class CreatePostDto{
 
 
 @Controller('posts')
-@ApiUseTags('Article')
+@ApiUseTags('Articles')
 export class PostsController {
     @Get()
     @ApiOperation({ title: 'show blog articles'})
-    index(){
-        return [
-            { id: 1},
-            { id: 1},
-            { id: 1},
-            { id: 1},
-            { id: 1}
-        ]
+    async index(){
+        return await PostModel.find()
     }
 
     @Post()
