@@ -6,9 +6,9 @@ import { PostModel } from './post.model';
 
 //from Typescript
 class CreatePostDto{
-    @ApiModelProperty({ description: 'article title'})
+    @ApiModelProperty({ description: 'article title', example: 'Article 2'})
     title: string
-    @ApiModelProperty({ description: 'article content'})
+    @ApiModelProperty({ description: 'article content', example: 'Content 2'})
     content: string
 }
 
@@ -25,7 +25,8 @@ export class PostsController {
 
     @Post()
     @ApiOperation({ title: 'create post article' })
-    create(@Body() body:CreatePostDto){
+    async create(@Body() CreatePostDto:CreatePostDto){
+        await PostModel.create(CreatePostDto)
         return {
             success: true
         }
@@ -33,24 +34,23 @@ export class PostsController {
 
     @Get(':id')
     @ApiOperation({ title: 'article detail'})
-    detail(@Param('id') id: string){
-        return {
-            id: 1,
-            title:'aaaaa'
-        }
+    async detail(@Param('id') id: string){
+        return await PostModel.findById(id)
     }
 
     @Put(':id')
     @ApiOperation({ title: 'edit article'})
-    update(@Param('id') id: string, @Body() body:CreatePostDto){
+    async update(@Param('id') id: string, @Body() updatePostDto:CreatePostDto){
+        await PostModel.findByIdAndUpdate(id, updatePostDto)
         return{
-            success: true
+            success:true
         }
     }
 
     @Delete(':id')
     @ApiOperation( {title: 'delete article'})
-    remove(@Param('id') id: string){
+    async remove(@Param('id') id: string){
+        await PostModel.findByIdAndRemove(id)
         return{
             success:true
         }
