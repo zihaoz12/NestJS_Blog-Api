@@ -28,7 +28,7 @@
     "@typegoose/typegoose": "^6.0.4",
     "@types/mongoose": "^5.5.22",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.10.2",
+    "class-validator": "^0.14.0",
     "mongoose": "^5.7.5",
     "nestjs-mongoose-crud": "^1.1.2",
     "nestjs-typegoose": "^7.0.0",
